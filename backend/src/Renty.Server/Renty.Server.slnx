@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Renty.Server.API/Renty.Server.API.csproj" />
+  <Project Path="Renty.Server.Application/Renty.Server.Application.csproj" />
+  <Project Path="Renty.Server.Domain/Renty.Server.Domain.csproj" />
+  <Project Path="Renty.Server.Infrastructure/Renty.Server.Infrastructure.csproj" />
+  <Project Path="Renty.Server.Persistence/Renty.Server.Persistence.csproj" />
+</Solution>
