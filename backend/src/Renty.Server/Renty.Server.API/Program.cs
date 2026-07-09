@@ -49,7 +49,9 @@ builder.Services
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("CanManageFleet", policy => policy.RequireRole("Admin", "Manager"))
-    .AddPolicy("CanManageReservations", policy => policy.RequireRole("Admin", "Manager"));
+    .AddPolicy("CanManageReservations", policy => policy.RequireRole("Admin", "Manager"))
+    .AddPolicy("CanManagePricing", policy => policy.RequireRole("Admin", "Manager"))
+    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -90,5 +92,7 @@ app.MapBrandEndpoints();
 app.MapModelEndpoints();
 app.MapCarEndpoints();
 app.MapReservationEndpoints();
+app.MapLocationEndpoints();
+app.MapPricingRuleEndpoints();
 
 app.Run();

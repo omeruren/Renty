@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Renty.Server.Application.Common.Constants;
 using Renty.Server.Application.Common.Exceptions;
 using Renty.Server.Application.Common.Interfaces;
+using Renty.Server.Application.Features.Reservations.Common;
 using Renty.Server.Application.Features.Reservations.DTOs;
 using Renty.Server.Domain.Entities;
 using Renty.Server.Domain.Enums;
@@ -59,12 +60,17 @@ public sealed class UpdateReservationHandler(
 
         var days = (int)Math.Ceiling((request.EndDate - request.StartDate).TotalDays);
 
+        var activeRules = await context.PricingRules
+            .Where(p => p.IsActive)
+            .ToListAsync(cancellationToken);
+
         reservation.StartDate = request.StartDate;
         reservation.EndDate = request.EndDate;
         reservation.PickupLocationId = request.PickupLocationId;
         reservation.ReturnLocationId = request.ReturnLocationId;
         reservation.Notes = request.Notes;
-        reservation.TotalPrice = reservation.Car.DailyPrice * days;
+        reservation.TotalPrice = PricingCalculator.CalculateTotalPrice(
+            reservation.Car.DailyPrice, days, request.StartDate, reservation.Car.Model.Category, activeRules);
 
         context.AuditLogs.Add(new AuditLog
         {
