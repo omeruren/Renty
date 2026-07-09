@@ -16,4 +16,6 @@ public sealed class CurrentUserService(IHttpContextAccessor httpContextAccessor)
     }
 
     public string? IpAddress => httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+
+    public bool IsInRole(string role) => httpContextAccessor.HttpContext?.User.IsInRole(role) ?? false;
 }
