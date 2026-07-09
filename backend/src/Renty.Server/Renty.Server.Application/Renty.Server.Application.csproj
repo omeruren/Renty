@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Renty.Server.Domain\Renty.Server.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+  </ItemGroup>
+
 </Project>
