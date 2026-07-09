@@ -14,7 +14,7 @@ public static class CarEndpoints
 {
     public static void MapCarEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/cars").WithTags("Cars").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/cars").WithTags("Cars").RequireAuthorization();
 
         group.MapGet("/", GetAllCars)
             .WithName("GetAllCars")

@@ -13,7 +13,7 @@ public static class UserEndpoints
 {
     public static void MapUserEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/users").WithTags("Users").RequireAuthorization("AdminOnly");
+        var group = app.MapGroup("/api/v1/users").WithTags("Users").RequireAuthorization("AdminOnly");
 
         group.MapGet("/", GetAllUsers)
             .WithName("GetAllUsers")

@@ -14,7 +14,7 @@ public static class PricingRuleEndpoints
 {
     public static void MapPricingRuleEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/pricing-rules")
+        var group = app.MapGroup("/api/v1/pricing-rules")
             .WithTags("Pricing Rules")
             .RequireAuthorization("CanManagePricing");
 

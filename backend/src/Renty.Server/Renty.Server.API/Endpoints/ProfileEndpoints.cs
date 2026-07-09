@@ -9,7 +9,7 @@ public static class ProfileEndpoints
 {
     public static void MapProfileEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/profile").WithTags("Profile").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/profile").WithTags("Profile").RequireAuthorization();
 
         group.MapGet("/", GetProfile)
             .WithName("GetProfile")

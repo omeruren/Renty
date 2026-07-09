@@ -9,7 +9,7 @@ public static class AuditLogEndpoints
 {
     public static void MapAuditLogEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/audit-logs").WithTags("Audit Logs").RequireAuthorization("AdminOnly");
+        var group = app.MapGroup("/api/v1/audit-logs").WithTags("Audit Logs").RequireAuthorization("AdminOnly");
 
         group.MapGet("/", GetAllAuditLogs)
             .WithName("GetAllAuditLogs")

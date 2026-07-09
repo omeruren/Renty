@@ -14,7 +14,7 @@ public static class ModelEndpoints
 {
     public static void MapModelEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/models").WithTags("Models").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/models").WithTags("Models").RequireAuthorization();
 
         group.MapGet("/", GetAllModels)
             .WithName("GetAllModels")

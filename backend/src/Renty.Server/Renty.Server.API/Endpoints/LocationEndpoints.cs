@@ -13,7 +13,7 @@ public static class LocationEndpoints
 {
     public static void MapLocationEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/locations").WithTags("Locations").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/locations").WithTags("Locations").RequireAuthorization();
 
         group.MapGet("/", GetAllLocations)
             .WithName("GetAllLocations")

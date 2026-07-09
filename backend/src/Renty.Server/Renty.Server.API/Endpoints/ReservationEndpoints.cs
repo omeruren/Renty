@@ -17,7 +17,7 @@ public static class ReservationEndpoints
 {
     public static void MapReservationEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/reservations").WithTags("Reservations").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/reservations").WithTags("Reservations").RequireAuthorization();
 
         group.MapGet("/", GetAllReservations)
             .WithName("GetAllReservations")

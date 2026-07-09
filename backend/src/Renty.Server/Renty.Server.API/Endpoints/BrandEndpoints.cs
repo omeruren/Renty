@@ -15,7 +15,7 @@ public static class BrandEndpoints
 {
     public static void MapBrandEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/brands").WithTags("Brands").RequireAuthorization();
+        var group = app.MapGroup("/api/v1/brands").WithTags("Brands").RequireAuthorization();
 
         group.MapGet("/", GetAllBrands)
             .WithName("GetAllBrands")

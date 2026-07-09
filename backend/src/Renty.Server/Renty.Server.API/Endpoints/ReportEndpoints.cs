@@ -8,7 +8,7 @@ public static class ReportEndpoints
 {
     public static void MapReportEndpoints(this IEndpointRouteBuilder app)
     {
-        var group = app.MapGroup("/api/reports").WithTags("Reports").RequireAuthorization("CanViewReports");
+        var group = app.MapGroup("/api/v1/reports").WithTags("Reports").RequireAuthorization("CanViewReports");
 
         group.MapGet("/revenue", GetRevenueReport)
             .WithName("GetRevenueReport")

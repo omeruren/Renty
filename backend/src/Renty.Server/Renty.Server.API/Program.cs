@@ -13,6 +13,7 @@ using Renty.Server.Infrastructure;
 using Renty.Server.Infrastructure.Configuration;
 using Renty.Server.Persistence;
 using Renty.Server.Persistence.Seed;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,6 +84,8 @@ builder.Services.AddHealthChecks()
         tags: ["ready"])
     .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
 
+builder.Services.AddOpenApi();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -90,6 +93,12 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await DevelopmentDataSeeder.SeedAsync(dbContext);
+}
+
+if (!app.Environment.IsProduction())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 // Configure the HTTP request pipeline.
