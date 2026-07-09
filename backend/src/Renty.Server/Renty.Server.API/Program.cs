@@ -1,7 +1,10 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Renty.Server.API.Endpoints;
 using Renty.Server.API.Middleware;
@@ -51,7 +54,8 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("CanManageFleet", policy => policy.RequireRole("Admin", "Manager"))
     .AddPolicy("CanManageReservations", policy => policy.RequireRole("Admin", "Manager"))
     .AddPolicy("CanManagePricing", policy => policy.RequireRole("Admin", "Manager"))
-    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"))
+    .AddPolicy("CanViewReports", policy => policy.RequireRole("Admin", "Manager"));
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -71,6 +75,13 @@ builder.Services.AddRateLimiter(options =>
         limiterOptions.QueueLimit = 0;
     });
 });
+
+builder.Services.AddHealthChecks()
+    .AddSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")!,
+        name: "database",
+        tags: ["ready"])
+    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
 
 var app = builder.Build();
 
@@ -94,5 +105,20 @@ app.MapCarEndpoints();
 app.MapReservationEndpoints();
 app.MapLocationEndpoints();
 app.MapPricingRuleEndpoints();
+app.MapUserEndpoints();
+app.MapProfileEndpoints();
+app.MapAuditLogEndpoints();
+app.MapReportEndpoints();
+
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("live")
+});
+
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = check => check.Tags.Contains("ready"),
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();

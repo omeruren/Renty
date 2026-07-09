@@ -13,4 +13,13 @@ public static class ReservationStatuses
         ReservationStatus.Confirmed,
         ReservationStatus.Active
     ];
+
+    /// <summary>
+    /// Statuses representing realized or committed revenue (rental has started or finished).
+    /// </summary>
+    public static readonly ReservationStatus[] Revenue =
+    [
+        ReservationStatus.Active,
+        ReservationStatus.Completed
+    ];
 }
