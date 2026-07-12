@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Renty.Server/">
+    <Project Path="src/Renty.Server/Renty.Server.API/Renty.Server.API.csproj" />
+    <Project Path="src/Renty.Server/Renty.Server.Application/Renty.Server.Application.csproj" />
+    <Project Path="src/Renty.Server/Renty.Server.Domain/Renty.Server.Domain.csproj" />
+    <Project Path="src/Renty.Server/Renty.Server.Infrastructure/Renty.Server.Infrastructure.csproj" />
+    <Project Path="src/Renty.Server/Renty.Server.Persistence/Renty.Server.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Renty.Server.IntegrationTests/Renty.Server.IntegrationTests.csproj" />
+    <Project Path="test/Renty.Server.UnitTests/Renty.Server.UnitTests.csproj" />
+  </Folder>
+</Solution>

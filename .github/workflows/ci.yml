@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore backend/Renty.slnx
+
+      - name: Build
+        run: dotnet build backend/Renty.slnx --no-restore -c Release
+
+      - name: Run unit tests
+        run: dotnet test backend/Renty.slnx --no-build -c Release --filter "FullyQualifiedName~UnitTests" --collect:"XPlat Code Coverage"
+
+      - name: Run integration tests
+        run: dotnet test backend/Renty.slnx --no-build -c Release --filter "FullyQualifiedName~IntegrationTests"
