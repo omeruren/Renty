@@ -34,6 +34,21 @@ public sealed class RegisterValidatorTests
         result.Errors.Should().Contain(e => e.PropertyName == nameof(RegisterCommand.Password));
     }
 
+    [Theory]
+    [InlineData("password")]
+    [InlineData("welcome1")]
+    [InlineData("PASSWORD")]
+    public void Validate_CommonPassword_ReturnsValidationErrorMentioningCommon(string password)
+    {
+        var command = ValidCommand() with { Password = password };
+
+        var result = _validator.Validate(command);
+
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e =>
+            e.PropertyName == nameof(RegisterCommand.Password) && e.ErrorMessage.Contains("too common"));
+    }
+
     [Fact]
     public void Validate_InvalidEmail_ReturnsValidationError()
     {

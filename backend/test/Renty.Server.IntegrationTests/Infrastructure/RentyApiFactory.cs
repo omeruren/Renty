@@ -37,7 +37,8 @@ public sealed class RentyApiFactory : WebApplicationFactory<Program>
             {
                 ["Jwt:SecretKey"] = "test-secret-key-for-integration-tests-only-do-not-use-in-production",
                 ["ConnectionStrings:DefaultConnection"] =
-                    "Server=(local);Database=RentyIntegrationTests;Trusted_Connection=True;TrustServerCertificate=True"
+                    "Server=(local);Database=RentyIntegrationTests;Trusted_Connection=True;TrustServerCertificate=True",
+                ["Cors:AllowedOrigins:0"] = "http://localhost:5173"
             });
         });
 
