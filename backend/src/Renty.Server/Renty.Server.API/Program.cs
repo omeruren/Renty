@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Renty.Server.API.Endpoints;
 using Renty.Server.API.Middleware;
@@ -14,122 +15,149 @@ using Renty.Server.Infrastructure.Configuration;
 using Renty.Server.Persistence;
 using Renty.Server.Persistence.Seed;
 using Scalar.AspNetCore;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-// Add services to the container.
-builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddApplicationServices();
+try
+{
+    Log.Information("Starting Renty API host");
 
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddProblemDetails();
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureHttpJsonOptions(options =>
-    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfiguration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services));
 
-var jwtSettings = builder.Configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
-    ?? throw new InvalidOperationException("Jwt configuration section is missing.");
+    // Add services to the container.
+    builder.Services.AddPersistenceServices(builder.Configuration);
+    builder.Services.AddInfrastructureServices(builder.Configuration);
+    builder.Services.AddApplicationServices();
 
-builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.MapInboundClaims = false;
-        options.TokenValidationParameters = new TokenValidationParameters
+    builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    builder.Services.AddProblemDetails();
+
+    builder.Services.ConfigureHttpJsonOptions(options =>
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+    var jwtSettings = builder.Configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
+        ?? throw new InvalidOperationException("Jwt configuration section is missing.");
+
+    builder.Services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-            ValidateIssuer = true,
-            ValidIssuer = jwtSettings.Issuer,
-            ValidateAudience = true,
-            ValidAudience = jwtSettings.Audience,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
-            ClockSkew = TimeSpan.Zero,
-            NameClaimType = "sub",
-            RoleClaimType = "roles"
-        };
-    });
+            options.MapInboundClaims = false;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtSettings.Issuer,
+                ValidateAudience = true,
+                ValidAudience = jwtSettings.Audience,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+                ClockSkew = TimeSpan.Zero,
+                NameClaimType = "sub",
+                RoleClaimType = "roles"
+            };
+        });
 
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("CanManageFleet", policy => policy.RequireRole("Admin", "Manager"))
-    .AddPolicy("CanManageReservations", policy => policy.RequireRole("Admin", "Manager"))
-    .AddPolicy("CanManagePricing", policy => policy.RequireRole("Admin", "Manager"))
-    .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"))
-    .AddPolicy("CanViewReports", policy => policy.RequireRole("Admin", "Manager"));
+    builder.Services.AddAuthorizationBuilder()
+        .AddPolicy("CanManageFleet", policy => policy.RequireRole("Admin", "Manager"))
+        .AddPolicy("CanManageReservations", policy => policy.RequireRole("Admin", "Manager"))
+        .AddPolicy("CanManagePricing", policy => policy.RequireRole("Admin", "Manager"))
+        .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"))
+        .AddPolicy("CanViewReports", policy => policy.RequireRole("Admin", "Manager"));
 
-builder.Services.AddRateLimiter(options =>
-{
-    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-
-    options.AddFixedWindowLimiter("auth", limiterOptions =>
+    builder.Services.AddRateLimiter(options =>
     {
-        limiterOptions.PermitLimit = 5;
-        limiterOptions.Window = TimeSpan.FromMinutes(1);
-        limiterOptions.QueueLimit = 0;
+        options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+        options.AddFixedWindowLimiter("auth", limiterOptions =>
+        {
+            limiterOptions.PermitLimit = 5;
+            limiterOptions.Window = TimeSpan.FromMinutes(1);
+            limiterOptions.QueueLimit = 0;
+        });
+
+        options.AddFixedWindowLimiter("auth-refresh", limiterOptions =>
+        {
+            limiterOptions.PermitLimit = 10;
+            limiterOptions.Window = TimeSpan.FromMinutes(1);
+            limiterOptions.QueueLimit = 0;
+        });
     });
 
-    options.AddFixedWindowLimiter("auth-refresh", limiterOptions =>
+    builder.Services.AddHealthChecks()
+        .AddSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")!,
+            name: "database",
+            tags: ["ready"])
+        .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
+
+    builder.Services.AddOpenApi();
+
+    var app = builder.Build();
+
+    if (app.Environment.IsDevelopment())
     {
-        limiterOptions.PermitLimit = 10;
-        limiterOptions.Window = TimeSpan.FromMinutes(1);
-        limiterOptions.QueueLimit = 0;
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        await DevelopmentDataSeeder.SeedAsync(dbContext);
+    }
+
+    if (!app.Environment.IsProduction())
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference();
+    }
+
+    // Configure the HTTP request pipeline.
+    app.UseMiddleware<TraceIdLoggingMiddleware>();
+    app.UseSerilogRequestLogging();
+    app.UseExceptionHandler();
+    app.UseRateLimiter();
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapAuthEndpoints();
+    app.MapBrandEndpoints();
+    app.MapModelEndpoints();
+    app.MapCarEndpoints();
+    app.MapReservationEndpoints();
+    app.MapLocationEndpoints();
+    app.MapPricingRuleEndpoints();
+    app.MapUserEndpoints();
+    app.MapProfileEndpoints();
+    app.MapAuditLogEndpoints();
+    app.MapReportEndpoints();
+
+    app.MapHealthChecks("/health/live", new HealthCheckOptions
+    {
+        Predicate = check => check.Tags.Contains("live")
     });
-});
 
-builder.Services.AddHealthChecks()
-    .AddSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")!,
-        name: "database",
-        tags: ["ready"])
-    .AddCheck("self", () => HealthCheckResult.Healthy(), tags: ["live"]);
+    app.MapHealthChecks("/health/ready", new HealthCheckOptions
+    {
+        Predicate = check => check.Tags.Contains("ready"),
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
-{
-    using var scope = app.Services.CreateScope();
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await DevelopmentDataSeeder.SeedAsync(dbContext);
+    app.Run();
 }
-
-if (!app.Environment.IsProduction())
+catch (Exception ex) when (ex is not HostAbortedException)
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference();
+    // HostAbortedException is expected here: WebApplicationFactory<Program> (integration tests)
+    // and `dotnet ef` design-time tooling both build this host just far enough to discover its
+    // configuration, then intentionally abort it — that's not a real startup failure.
+    Log.Fatal(ex, "Renty API host terminated unexpectedly");
 }
-
-// Configure the HTTP request pipeline.
-app.UseExceptionHandler();
-app.UseRateLimiter();
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapAuthEndpoints();
-app.MapBrandEndpoints();
-app.MapModelEndpoints();
-app.MapCarEndpoints();
-app.MapReservationEndpoints();
-app.MapLocationEndpoints();
-app.MapPricingRuleEndpoints();
-app.MapUserEndpoints();
-app.MapProfileEndpoints();
-app.MapAuditLogEndpoints();
-app.MapReportEndpoints();
-
-app.MapHealthChecks("/health/live", new HealthCheckOptions
+finally
 {
-    Predicate = check => check.Tags.Contains("live")
-});
-
-app.MapHealthChecks("/health/ready", new HealthCheckOptions
-{
-    Predicate = check => check.Tags.Contains("ready"),
-    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
-
-app.Run();
+    Log.CloseAndFlush();
+}
 
 public partial class Program;
