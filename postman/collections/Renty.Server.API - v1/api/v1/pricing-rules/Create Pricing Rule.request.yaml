@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/pricing-rules"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "string",
+      "ruleType": "CategoryMultiplier",
+      "multiplier": "-0",
+      "startDate": "1964-02-18T17:56:24.007Z",
+      "endDate": "1977-06-11T06:35:24.388Z",
+      "vehicleCategory": "SUV",
+      "priority": "0"
+    }
+examples: ./.resources/Create Pricing Rule.resources/examples
+order: 3000

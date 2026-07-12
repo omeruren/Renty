@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/users?page=1&pageSize=10"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+examples: ./.resources/Get All Users.resources/examples
+order: 2000

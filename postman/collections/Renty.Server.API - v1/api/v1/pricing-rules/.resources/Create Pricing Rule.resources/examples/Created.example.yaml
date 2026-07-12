@@ -1,0 +1,40 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/pricing-rules"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "ruleType": "CategoryMultiplier",
+        "multiplier": "-0",
+        "startDate": "1964-02-18T17:56:24.007Z",
+        "endDate": "1977-06-11T06:35:24.388Z",
+        "vehicleCategory": "SUV",
+        "priority": "0"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "1ad70954-69ac-7de3-5a37-0344b69d1497",
+        "name": "string",
+        "ruleType": "CategoryMultiplier",
+        "multiplier": "-0.4934",
+        "startDate": null,
+        "endDate": "1975-12-21T10:42:16.359Z",
+        "vehicleCategory": null,
+        "isActive": true,
+        "priority": "-6791807889",
+        "createdAt": "2004-03-22T01:59:27.732Z"
+      }
+order: 1000

@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: e23d954c-73e6-4587-8f52-9d58921e6ed6
+
+localResources:
+  specs:
+    - ../backend/src/Renty.Server/Renty.Server.API/obj/Debug/net10.0/EndpointInfo/Renty.Server.API.json
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../postman/collections/Renty.Server.API - v1: d8c4ccbb-ca5d-4fa6-8598-b55f5b8ff243

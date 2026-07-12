@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/reports/revenue?from=2021-04-07T05:06:29.994Z&to=2021-04-07T05:06:29.994Z"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  from: 2021-04-07T05:06:29.994Z
+  to: 2021-04-07T05:06:29.994Z
+examples: ./.resources/Get Revenue Report.resources/examples
+order: 1000

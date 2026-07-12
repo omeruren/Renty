@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/reservations?page=1&pageSize=10&status=Completed&carId=d28dc20d-a6b4-850c-6a56-8580e704c69b&userId=d28dc20d-a6b4-850c-6a56-8580e704c69b&sortBy=startDate&sortOrder=desc"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  status: Completed
+  carId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  userId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  sortBy: startDate
+  sortOrder: desc
+examples: ./.resources/Get All Reservations.resources/examples
+order: 3000

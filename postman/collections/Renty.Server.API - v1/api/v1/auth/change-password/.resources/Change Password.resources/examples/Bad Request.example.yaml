@@ -1,0 +1,40 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/auth/change-password"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "currentPassword": "string",
+        "newPassword": "string"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": null,
+        "status": "-558581",
+        "detail": "string",
+        "instance": null,
+        "errors": {
+          "key_0": [
+            "string",
+            "string"
+          ],
+          "key_1": [
+            "string",
+            "string"
+          ]
+        }
+      }
+order: 2000

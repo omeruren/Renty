@@ -1,0 +1,29 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/brands"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "logoUrl": "string"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "e4a3c45c-53bb-fd8f-ac20-39f756ac33f9",
+        "name": "string",
+        "logoUrl": "string",
+        "createdAt": "1971-12-13T19:02:03.112Z"
+      }
+order: 1000

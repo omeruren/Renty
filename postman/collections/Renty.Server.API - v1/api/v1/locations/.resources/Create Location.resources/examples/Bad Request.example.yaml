@@ -1,0 +1,46 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/locations"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "address": "string",
+        "city": "string",
+        "district": null,
+        "phoneNumber": "string",
+        "email": "string",
+        "latitude": "0.914",
+        "longitude": "-81067885.495e4214765893"
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": null,
+        "status": "-558581",
+        "detail": "string",
+        "instance": null,
+        "errors": {
+          "key_0": [
+            "string",
+            "string"
+          ],
+          "key_1": [
+            "string",
+            "string"
+          ]
+        }
+      }
+order: 2000

@@ -1,0 +1,50 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/brands/:id/models?page=1&pageSize=10"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "780c7771-8a0f-8ac4-1159-47e1bcfa1ce6",
+            "name": "string",
+            "category": "Compact",
+            "seatCount": "-27426",
+            "transmissionType": "Automatic",
+            "fuelType": "Diesel",
+            "brandId": "4db22d1e-593f-18e8-cd63-abe071c7ede2",
+            "brandName": "string"
+          },
+          {
+            "id": "819aaeff-50ce-f0d8-27d8-cee4bb1f9429",
+            "name": "string",
+            "category": "Van",
+            "seatCount": "-0",
+            "transmissionType": "Manual",
+            "fuelType": "PlugInHybrid",
+            "brandId": "e12c9b01-3f58-49bb-1a0b-5b3384bc2cfd",
+            "brandName": "string"
+          }
+        ],
+        "page": "-9353",
+        "pageSize": "-0",
+        "totalCount": "8075124",
+        "totalPages": "71",
+        "hasPreviousPage": false,
+        "hasNextPage": false
+      }
+order: 1000

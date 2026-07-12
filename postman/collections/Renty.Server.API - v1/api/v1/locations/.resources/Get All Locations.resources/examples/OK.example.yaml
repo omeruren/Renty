@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/locations?page=1&pageSize=10&city=string&isActive=true"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+    city: string
+    isActive: "true"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "3c89d533-f41b-c6da-0b0e-2aac389e4d9b",
+            "name": "string",
+            "city": "string",
+            "isActive": false
+          },
+          {
+            "id": "b5a23d09-e7af-bbc3-51d2-c79751995c98",
+            "name": "string",
+            "city": "string",
+            "isActive": false
+          }
+        ],
+        "page": "0",
+        "pageSize": "7548342302",
+        "totalCount": "-0",
+        "totalPages": "-0",
+        "hasPreviousPage": true,
+        "hasNextPage": true
+      }
+order: 1000

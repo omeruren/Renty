@@ -1,0 +1,10 @@
+$kind: collection
+name: Renty.Server.API | v1
+variables:
+  - key: baseUrl
+    value: https://localhost:7079/
+    secret: false
+  - key: json_web_token_0crr
+    secret: true
+  - key: supabase_service_role_api_key_0crr
+    secret: true

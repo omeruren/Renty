@@ -1,0 +1,45 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/pricing-rules?page=1&pageSize=10&isActive=true"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+    isActive: "true"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "1eabd48a-81af-e9cc-94ab-b4f319307695",
+            "name": "string",
+            "ruleType": "SeasonalMultiplier",
+            "multiplier": "-15576",
+            "isActive": false,
+            "priority": "-0"
+          },
+          {
+            "id": "a4447f76-7289-a285-e7f2-714136fc8003",
+            "name": "string",
+            "ruleType": "LongTermDiscount",
+            "multiplier": "0",
+            "isActive": false,
+            "priority": "-858082031"
+          }
+        ],
+        "page": "-416680",
+        "pageSize": "-0",
+        "totalCount": "-0",
+        "totalPages": "-88175305",
+        "hasPreviousPage": false,
+        "hasNextPage": true
+      }
+order: 1000

@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/profile"
+method: PUT
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "firstName": "string",
+      "lastName": "string",
+      "phoneNumber": "string",
+      "dateOfBirth": null
+    }
+examples: ./.resources/Update Profile.resources/examples
+order: 2000

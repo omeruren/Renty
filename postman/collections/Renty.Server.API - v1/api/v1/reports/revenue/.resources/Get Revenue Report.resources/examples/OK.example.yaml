@@ -1,0 +1,25 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/reports/revenue?from=2021-04-07T05:06:29.994Z&to=2021-04-07T05:06:29.994Z"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    from: 2021-04-07T05:06:29.994Z
+    to: 2021-04-07T05:06:29.994Z
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "from": null,
+        "to": "1991-02-14T21:34:07.896Z",
+        "totalRevenue": "-3649.4789053309",
+        "reservationCount": "0",
+        "averageReservationValue": "734747"
+      }
+order: 1000

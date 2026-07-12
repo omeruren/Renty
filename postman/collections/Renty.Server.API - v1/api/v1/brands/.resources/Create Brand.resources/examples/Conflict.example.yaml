@@ -1,0 +1,30 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/brands"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "logoUrl": "string"
+      }
+response:
+  statusCode: 409
+  statusText: Conflict
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": "string",
+        "status": "-45",
+        "detail": null,
+        "instance": "string"
+      }
+order: 3000

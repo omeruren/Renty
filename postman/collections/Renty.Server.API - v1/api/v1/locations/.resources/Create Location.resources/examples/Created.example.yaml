@@ -1,0 +1,42 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/locations"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "address": "string",
+        "city": "string",
+        "district": null,
+        "phoneNumber": "string",
+        "email": "string",
+        "latitude": "0.914",
+        "longitude": "-81067885.495e4214765893"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "75e7e35b-e204-23d4-f423-557321b09f8d",
+        "name": "string",
+        "address": "string",
+        "city": "string",
+        "district": "string",
+        "phoneNumber": "string",
+        "email": "string",
+        "latitude": "-0.1041",
+        "longitude": "-1",
+        "isActive": true,
+        "createdAt": "1991-01-23T03:27:28.555Z"
+      }
+order: 1000

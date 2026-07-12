@@ -1,0 +1,34 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/users/:id/roles"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  body:
+    type: json
+    content: |-
+      {
+        "roleIds": [
+          "4586392d-9186-1539-8177-71ba7e92687f",
+          "91073553-b9f8-91f2-e458-755fb0a38a74"
+        ]
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": "string",
+        "status": "-45",
+        "detail": null,
+        "instance": "string"
+      }
+order: 3000

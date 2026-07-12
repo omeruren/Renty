@@ -1,0 +1,38 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/brands?page=1&pageSize=10"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "3ff6a59e-430f-8eb6-f4d2-2c4072bb0075",
+            "name": "string",
+            "logoUrl": null
+          },
+          {
+            "id": "d4998f4f-aee6-046b-d218-2e7bd806e31e",
+            "name": "string",
+            "logoUrl": "string"
+          }
+        ],
+        "page": "-60",
+        "pageSize": "-0",
+        "totalCount": "-14780",
+        "totalPages": "-0",
+        "hasPreviousPage": false,
+        "hasNextPage": false
+      }
+order: 1000

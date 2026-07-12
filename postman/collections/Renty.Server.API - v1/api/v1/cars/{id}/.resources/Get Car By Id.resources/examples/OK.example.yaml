@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/cars/:id"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "afec8dfa-64ad-c080-122e-0d1a474c1c90",
+        "licensePlate": "string",
+        "year": "-437354872",
+        "color": "string",
+        "mileage": "-0",
+        "dailyPrice": "0.73",
+        "status": "Maintenance",
+        "description": "string",
+        "imageUrl": null,
+        "brandId": "e271e313-e154-3f6d-f429-68000479269f",
+        "brandName": "string",
+        "modelId": "99011a3d-7728-fbb5-7525-d1265c649796",
+        "modelName": "string",
+        "locationId": "3641e28b-3fe8-6c3e-8560-e76b2317f80d",
+        "locationName": "string",
+        "createdAt": "1958-06-30T15:34:26.480Z"
+      }
+order: 1000

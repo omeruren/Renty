@@ -1,0 +1,35 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/reports/revenue?from=2021-04-07T05:06:29.994Z&to=2021-04-07T05:06:29.994Z"
+  method: GET
+  headers:
+    Accept: application/problem+json
+  queryParams:
+    from: 2021-04-07T05:06:29.994Z
+    to: 2021-04-07T05:06:29.994Z
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": null,
+        "status": "-558581",
+        "detail": "string",
+        "instance": null,
+        "errors": {
+          "key_0": [
+            "string",
+            "string"
+          ],
+          "key_1": [
+            "string",
+            "string"
+          ]
+        }
+      }
+order: 2000

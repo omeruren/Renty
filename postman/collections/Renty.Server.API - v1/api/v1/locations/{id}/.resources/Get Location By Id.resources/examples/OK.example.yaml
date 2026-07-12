@@ -1,0 +1,30 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/locations/:id"
+  method: GET
+  headers:
+    Accept: application/json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "75e7e35b-e204-23d4-f423-557321b09f8d",
+        "name": "string",
+        "address": "string",
+        "city": "string",
+        "district": "string",
+        "phoneNumber": "string",
+        "email": "string",
+        "latitude": "-0.1041",
+        "longitude": "-1",
+        "isActive": true,
+        "createdAt": "1991-01-23T03:27:28.555Z"
+      }
+order: 1000

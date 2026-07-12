@@ -1,0 +1,37 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/cars/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  body:
+    type: json
+    content: |-
+      {
+        "color": "string",
+        "mileage": "11046519698",
+        "dailyPrice": "-52785895",
+        "status": "Rented",
+        "description": "string",
+        "imageUrl": null,
+        "locationId": "5e5fa961-3acd-09bd-6127-a602f5e84872"
+      }
+response:
+  statusCode: 404
+  statusText: Not Found
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": "string",
+        "status": "-45",
+        "detail": null,
+        "instance": "string"
+      }
+order: 3000

@@ -1,0 +1,39 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/reservations/:id/complete"
+  method: POST
+  headers:
+    Accept: application/json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "be32cc24-15e6-d450-54e9-17c9fa9a0910",
+        "startDate": "1992-05-05T20:04:02.603Z",
+        "endDate": "1973-06-12T10:06:31.138Z",
+        "totalPrice": "505353.38881862",
+        "status": "Expired",
+        "notes": null,
+        "cancellationReason": "string",
+        "cancelledAt": null,
+        "userId": "e9644f7b-0b8a-32b1-759b-ea8bfaeec196",
+        "userName": "string",
+        "userEmail": "string",
+        "carId": "af60483d-0489-e6b3-0024-84c52c26acd5",
+        "carLicensePlate": "string",
+        "carBrandName": "string",
+        "carModelName": "string",
+        "pickupLocationId": "f3bcedb2-806f-5493-b3ec-ab5f64925c14",
+        "pickupLocationName": "string",
+        "returnLocationId": "4de62213-013c-f7ce-270e-aca51e1d74c8",
+        "returnLocationName": "string",
+        "createdAt": "1996-04-13T11:46:59.130Z"
+      }
+order: 1000

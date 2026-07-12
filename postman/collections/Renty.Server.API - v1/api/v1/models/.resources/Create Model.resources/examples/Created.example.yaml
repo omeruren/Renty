@@ -1,0 +1,38 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/models"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "category": "Van",
+        "seatCount": "43789488917",
+        "transmissionType": "Manual",
+        "fuelType": "PlugInHybrid",
+        "brandId": "97424574-b2c3-5a39-f9c5-4fa3a88b580e"
+      }
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "f69971de-74d7-6982-21e3-71bbfcb0cc14",
+        "name": "string",
+        "category": "Compact",
+        "seatCount": "-30",
+        "transmissionType": "Manual",
+        "fuelType": "Gasoline",
+        "brandId": "003ce925-d5ad-87ee-9cdb-d95190cb0348",
+        "brandName": "string",
+        "createdAt": "1990-03-11T04:45:40.430Z"
+      }
+order: 1000

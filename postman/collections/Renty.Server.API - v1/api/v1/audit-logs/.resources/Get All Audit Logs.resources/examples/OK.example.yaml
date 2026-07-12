@@ -1,0 +1,54 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/audit-logs?page=1&pageSize=10&entityName=string&userId=d28dc20d-a6b4-850c-6a56-8580e704c69b"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+    entityName: string
+    userId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "868b31d7-5464-7358-e5a7-6155bb5f4e4a",
+            "entityName": "string",
+            "entityId": "string",
+            "action": "Login",
+            "oldValues": "string",
+            "newValues": null,
+            "userId": null,
+            "userEmail": "string",
+            "timestamp": "1986-09-04T03:46:31.295Z",
+            "ipAddress": null
+          },
+          {
+            "id": "050107c4-8ba4-951b-64ea-d74ebee5aa28",
+            "entityName": "string",
+            "entityId": "string",
+            "action": "Update",
+            "oldValues": "string",
+            "newValues": null,
+            "userId": null,
+            "userEmail": null,
+            "timestamp": "2005-03-07T10:15:08.517Z",
+            "ipAddress": "string"
+          }
+        ],
+        "page": "85808",
+        "pageSize": "-491",
+        "totalCount": "865",
+        "totalPages": "7639657307",
+        "hasPreviousPage": true,
+        "hasNextPage": false
+      }
+order: 1000

@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/reservations/my?page=1&pageSize=10&status=Completed"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  status: Completed
+examples: ./.resources/Get My Reservations.resources/examples
+order: 1000

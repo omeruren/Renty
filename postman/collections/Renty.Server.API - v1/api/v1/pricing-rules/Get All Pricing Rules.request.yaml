@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/pricing-rules?page=1&pageSize=10&isActive=true"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  isActive: "true"
+examples: ./.resources/Get All Pricing Rules.resources/examples
+order: 2000

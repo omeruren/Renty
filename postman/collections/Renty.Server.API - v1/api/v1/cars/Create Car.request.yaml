@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/cars"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "licensePlate": "string",
+      "year": "-39154",
+      "color": "string",
+      "mileage": "14542",
+      "dailyPrice": "2285.6",
+      "description": null,
+      "imageUrl": null,
+      "brandId": "3e64c000-bcc7-e88e-b689-5c7f2235f199",
+      "modelId": "4632b7c6-adeb-79c9-2248-ecb2d964fc9d",
+      "locationId": "205e67a0-9f3c-999e-8193-5c8d1b5f5e6e"
+    }
+examples: ./.resources/Create Car.resources/examples
+order: 3000

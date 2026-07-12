@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/locations?page=1&pageSize=10&city=string&isActive=true"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  city: string
+  isActive: "true"
+examples: ./.resources/Get All Locations.resources/examples
+order: 2000

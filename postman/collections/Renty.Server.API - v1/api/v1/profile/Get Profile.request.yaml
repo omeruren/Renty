@@ -1,0 +1,7 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/profile"
+method: GET
+headers:
+  Accept: application/json
+examples: ./.resources/Get Profile.resources/examples
+order: 1000

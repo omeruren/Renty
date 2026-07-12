@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get All Brands
+url: "{{baseUrl}}/api/v1/brands?page=1&pageSize=10"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0crr}}"
+examples: ./.resources/Get All Brands.resources/examples
+order: 2000

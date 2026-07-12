@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/brands/:id/models?page=1&pageSize=10"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+pathVariables:
+  id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+examples: ./.resources/Get Models By Brand.resources/examples
+order: 1000

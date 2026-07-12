@@ -1,0 +1,16 @@
+$kind: http-request
+name: Get All Models
+url: "{{baseUrl}}/api/v1/models?page=1&pageSize=10&brandId=d28dc20d-a6b4-850c-6a56-8580e704c69b"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  brandId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+auth:
+  type: bearer
+  credentials:
+    token: "{{supabase_service_role_api_key_0crr}}"
+examples: ./.resources/Get All Models.resources/examples
+order: 2000

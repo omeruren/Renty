@@ -1,0 +1,28 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/profile"
+  method: GET
+  headers:
+    Accept: application/json
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "1e6ce19e-013e-b332-bea5-1dd4012e4915",
+        "email": "string",
+        "firstName": "string",
+        "lastName": "string",
+        "phoneNumber": "string",
+        "dateOfBirth": null,
+        "roles": [
+          "string",
+          "string"
+        ],
+        "createdAt": "1992-01-09T18:24:02.239Z"
+      }
+order: 1000

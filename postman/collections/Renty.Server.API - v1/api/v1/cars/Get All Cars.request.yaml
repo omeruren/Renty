@@ -1,0 +1,21 @@
+$kind: http-request
+name: Get All Cars
+url: "{{baseUrl}}/api/v1/cars?page=1&pageSize=10&status=OutOfService&brandId=d28dc20d-a6b4-850c-6a56-8580e704c69b&minPrice=0.043289&maxPrice=0.043289&sortBy=licensePlate&sortOrder=asc"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  page: "1"
+  pageSize: "10"
+  status: OutOfService
+  brandId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  minPrice: "0.043289"
+  maxPrice: "0.043289"
+  sortBy: licensePlate
+  sortOrder: asc
+auth:
+  type: bearer
+  credentials:
+    token: "{{json_web_token_0crr}}"
+examples: ./.resources/Get All Cars.resources/examples
+order: 2000

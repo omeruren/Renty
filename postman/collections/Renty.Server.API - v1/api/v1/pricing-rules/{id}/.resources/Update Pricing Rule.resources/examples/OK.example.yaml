@@ -1,0 +1,43 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/pricing-rules/:id"
+  method: PUT
+  headers:
+    Content-Type: application/json
+    Accept: application/json
+  pathVariables:
+    id: d28dc20d-a6b4-850c-6a56-8580e704c69b
+  body:
+    type: json
+    content: |-
+      {
+        "name": "string",
+        "ruleType": "CategoryMultiplier",
+        "multiplier": "-199206",
+        "startDate": "2017-06-07T12:46:19.592Z",
+        "endDate": "1980-10-07T05:38:33.477Z",
+        "vehicleCategory": "Truck",
+        "isActive": false,
+        "priority": "0"
+      }
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "id": "1ad70954-69ac-7de3-5a37-0344b69d1497",
+        "name": "string",
+        "ruleType": "CategoryMultiplier",
+        "multiplier": "-0.4934",
+        "startDate": null,
+        "endDate": "1975-12-21T10:42:16.359Z",
+        "vehicleCategory": null,
+        "isActive": true,
+        "priority": "-6791807889",
+        "createdAt": "2004-03-22T01:59:27.732Z"
+      }
+order: 1000

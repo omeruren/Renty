@@ -1,0 +1,44 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/reservations"
+  method: POST
+  headers:
+    Content-Type: application/json
+    Accept: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "carId": "8ced6343-5a97-7c18-8534-fac6b6b21fab",
+        "startDate": "2016-12-05T14:48:37.485Z",
+        "endDate": "2018-11-09T13:41:58.868Z",
+        "pickupLocationId": "1b6a9b64-35ea-63df-f1a9-437f0e91ade8",
+        "returnLocationId": "67a57338-e6d5-ac6b-3117-1d9d1fbb0fc6",
+        "notes": null
+      }
+response:
+  statusCode: 400
+  statusText: Bad Request
+  headers:
+    Content-Type: application/problem+json
+  body:
+    type: json
+    content: |-
+      {
+        "type": null,
+        "title": null,
+        "status": "-558581",
+        "detail": "string",
+        "instance": null,
+        "errors": {
+          "key_0": [
+            "string",
+            "string"
+          ],
+          "key_1": [
+            "string",
+            "string"
+          ]
+        }
+      }
+order: 2000

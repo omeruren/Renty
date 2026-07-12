@@ -1,0 +1,56 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/api/v1/cars?page=1&pageSize=10&status=OutOfService&brandId=d28dc20d-a6b4-850c-6a56-8580e704c69b&minPrice=0.043289&maxPrice=0.043289&sortBy=licensePlate&sortOrder=asc"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    page: "1"
+    pageSize: "10"
+    status: OutOfService
+    brandId: d28dc20d-a6b4-850c-6a56-8580e704c69b
+    minPrice: "0.043289"
+    maxPrice: "0.043289"
+    sortBy: licensePlate
+    sortOrder: asc
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      {
+        "items": [
+          {
+            "id": "85aaf7ac-f396-f18a-f00b-03c3988cac2b",
+            "licensePlate": "string",
+            "year": "-0",
+            "color": "string",
+            "dailyPrice": "0.57095",
+            "status": "Rented",
+            "brandName": "string",
+            "modelName": "string",
+            "locationName": "string"
+          },
+          {
+            "id": "0ce2f76a-b6ff-0d5d-b2bd-4c92542471f8",
+            "licensePlate": "string",
+            "year": "-83169664",
+            "color": "string",
+            "dailyPrice": "96957575.99951",
+            "status": "Reserved",
+            "brandName": "string",
+            "modelName": "string",
+            "locationName": "string"
+          }
+        ],
+        "page": "0",
+        "pageSize": "-0",
+        "totalCount": "0",
+        "totalPages": "26159842",
+        "hasPreviousPage": false,
+        "hasNextPage": false
+      }
+order: 1000

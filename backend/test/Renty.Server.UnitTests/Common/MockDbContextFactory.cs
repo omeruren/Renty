@@ -9,6 +9,11 @@ public static class MockDbContextFactory
 {
     public static IApplicationDbContext Create(
         IEnumerable<User>? users = null,
+        IEnumerable<Role>? roles = null,
+        IEnumerable<Permission>? permissions = null,
+        IEnumerable<UserRole>? userRoles = null,
+        IEnumerable<RolePermission>? rolePermissions = null,
+        IEnumerable<RefreshToken>? refreshTokens = null,
         IEnumerable<Brand>? brands = null,
         IEnumerable<Model>? models = null,
         IEnumerable<Car>? cars = null,
@@ -23,6 +28,11 @@ public static class MockDbContextFactory
         // BuildMockDbSet() calls Returns() internally, which would otherwise clobber NSubstitute's
         // "last call" tracking for the context.Xyz.Returns(...) call below it.
         var usersDbSet = (users ?? []).ToList().BuildMockDbSet();
+        var rolesDbSet = (roles ?? []).ToList().BuildMockDbSet();
+        var permissionsDbSet = (permissions ?? []).ToList().BuildMockDbSet();
+        var userRolesDbSet = (userRoles ?? []).ToList().BuildMockDbSet();
+        var rolePermissionsDbSet = (rolePermissions ?? []).ToList().BuildMockDbSet();
+        var refreshTokensDbSet = (refreshTokens ?? []).ToList().BuildMockDbSet();
         var brandsDbSet = (brands ?? []).ToList().BuildMockDbSet();
         var modelsDbSet = (models ?? []).ToList().BuildMockDbSet();
         var carsDbSet = (cars ?? []).ToList().BuildMockDbSet();
@@ -32,6 +42,11 @@ public static class MockDbContextFactory
         var auditLogsDbSet = (auditLogs ?? []).ToList().BuildMockDbSet();
 
         context.Users.Returns(usersDbSet);
+        context.Roles.Returns(rolesDbSet);
+        context.Permissions.Returns(permissionsDbSet);
+        context.UserRoles.Returns(userRolesDbSet);
+        context.RolePermissions.Returns(rolePermissionsDbSet);
+        context.RefreshTokens.Returns(refreshTokensDbSet);
         context.Brands.Returns(brandsDbSet);
         context.Models.Returns(modelsDbSet);
         context.Cars.Returns(carsDbSet);
