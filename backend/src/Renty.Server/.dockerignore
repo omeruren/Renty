@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+**/.vs/
+**/node_modules/
+**/*.user
+**/Thumbs.db
+.git/
+.gitignore
+README.md
+docs/
+ai/

@@ -1,0 +1,42 @@
+services:
+  api:
+    build:
+      context: ./backend/src/Renty.Server
+      dockerfile: Renty.Server.API/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=RentyDb;User=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
+      - Jwt__SecretKey=${JWT_SECRET_KEY}
+      - Jwt__Issuer=Renty.Development
+      - Jwt__Audience=Renty.Client.Development
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - renty-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$${SA_PASSWORD}" -C -Q "SELECT 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - renty-network
+
+volumes:
+  sqlserver-data:
+
+networks:
+  renty-network:
+    driver: bridge
